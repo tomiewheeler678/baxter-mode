@@ -16,30 +16,36 @@ class App extends Component {
   }
 
   toggleNote = () => {
+  //toggleNote  ()  {
     this.setState({
       showNote: ! this.state.showNote
     });
   }
 
   getNotes = () => {
+  //getNotes () {
     axios.get(urlFor('notes'))
     .then((res) => this.setState({ notes: res.data }) )
     .catch((err) => console.log(err.response.data) );
   }
 
-   return (
-    <div className="App">
-      <Nav toggleNote={this.toggleNote} showNote={showNote} />
-      {showNote ?
-        <Note />
-        :
-        <List
-          getNotes={this.getNotes}
-          notes={notes}
-        />
-      }
-    </div>
-  );
+  render() {
+    const { showNote, notes } = this.state;
+
+    return (
+      <div className="App">
+        <Nav toggleNote={this.toggleNote} showNote={showNote} />
+        {showNote ?
+          <Note />
+          :
+          <List
+            getNotes={this.getNotes}
+            notes={notes}
+          />
+        }
+      </div>
+    );
+  }
 }
 
-export default App;
+  export default App;
